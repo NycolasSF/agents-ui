@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Loader2, BarChart2, ChevronRight, Plus, Trash2, MessageSquare } from 'lucide-react'
+import { Loader2, BarChart2, ChevronRight, Plus, Trash2, MessageSquare, Home } from 'lucide-react'
 
 export default function Sidebar({
   agents, activeAgent, activeChatId, chats, agentChats,
   onSelectAgent, onSelectChat, onDeleteChat,
-  loading, view, onDashboard,
+  loading, view, onHome, onDashboard,
 }) {
   const [expandedAgents, setExpandedAgents] = useState(new Set())
 
@@ -133,7 +133,20 @@ export default function Sidebar({
         )}
       </nav>
 
-      <div className="p-2 border-t border-[#1e1e2e]">
+      <div className="p-2 border-t border-[#1e1e2e] space-y-1">
+        <button
+          onClick={onHome}
+          className={`
+            w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm
+            ${view === 'home'
+              ? 'bg-[#1a1a25] text-[#e8e8f0] border border-[#2a2a3e]'
+              : 'text-[#55556a] hover:text-[#8888a0] hover:bg-[#12121a] border border-transparent'
+            }
+          `}
+        >
+          <Home size={16} />
+          Início
+        </button>
         <button
           onClick={onDashboard}
           className={`

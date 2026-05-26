@@ -8,17 +8,25 @@
     "dev": "vite",
     "dev:server": "nodemon server/index.js",
     "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
+    "start": "pm2 start ecosystem.config.cjs",
+    "stop": "pm2 stop ecosystem.config.cjs",
+    "restart": "pm2 restart ecosystem.config.cjs",
+    "status": "pm2 status",
+    "logs": "pm2 logs",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
+    "d3-force": "^3.0.0",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "lucide-react": "^0.468.0",
+    "pdf-parse": "^2.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-force-graph-2d": "^1.29.1",
     "react-markdown": "^9.0.1"
   },
   "devDependencies": {

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Section — Formação INSS de Obras</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --azul-escuro: #0B1E3D;
+      --azul-medio: #122848;
+      --dourado: #F5A623;
+      --dourado-claro: #FFB84D;
+      --branco: #FFFFFF;
+      --cinza-claro: #E8EDF5;
+      --verde: #27AE60;
+      --texto-suave: #B0BDD0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--azul-escuro);
+      color: var(--branco);
+    }
+
+    /* ─── FAIXA DE URGÊNCIA ─── */
+    .urgency-bar {
+      background: var(--dourado);
+      color: var(--azul-escuro);
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+    }
+    .urgency-bar span {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(160deg, #0B1E3D 0%, #122848 60%, #0d2240 100%);
+      padding: 72px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── BADGE ─── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245,166,35,0.12);
+      border: 1px solid rgba(245,166,35,0.35);
+      color: var(--dourado);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 28px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--dourado);
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ─── HEADLINE ─── */
+    .headline {
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    .headline .destaque {
+      color: var(--dourado);
+    }
+    .headline .linha-2 {
+      display: block;
+      font-size: clamp(26px, 4.2vw, 44px);
+    }
+
+    /* ─── SUBHEADLINE ─── */
+    .subheadline {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--cinza-claro);
+      line-height: 1.65;
+      margin-bottom: 36px;
+      max-width: 720px;
+    }
+    .subheadline strong {
+      color: var(--branco);
+    }
+
+    /* ─── PROVA SOCIAL RÁPIDA ─── */
+    .social-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .social-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-size: 14px;
+    }
+    .social-pill .icon { font-size: 16px; }
+    .social-pill .num {
+      font-weight: 700;
+      color: var(--dourado);
+    }
+
+    /* ─── BULLETS ─── */
+    .bullets {
+      list-style: none;
+      margin-bottom: 44px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .bullets { grid-template-columns: 1fr; }
+    }
+    .bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--cinza-claro);
+    }
+    .bullets li .check {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--verde);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      font-size: 11px;
+    }
+
+    /* ─── CTA ÁREA ─── */
+    .cta-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .price-stack {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .price-original {
+      font-size: 15px;
+      color: var(--texto-suave);
+      text-decoration: line-through;
+    }
+    .price-atual {
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 800;
+      color: var(--branco);
+    }
+    .price-atual span {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .price-parcelas {
+      font-size: 14px;
+      color: var(--texto-suave);
+      margin-top: 4px;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #F5A623 0%, #E8940F 100%);
+      color: #0B1E3D;
+      font-size: clamp(16px, 2vw, 18px);
+      font-weight: 800;
+      padding: 18px 40px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 28px rgba(245,166,35,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-transform: uppercase;
+    }
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(245,166,35,0.45);
+    }
+    .btn-cta:active { transform: translateY(0); }
+
+    .garantia-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--texto-suave);
+    }
+    .garantia-line .lock { font-size: 14px; }
+
+    /* ─── CONTADOR ─── */
+    .countdown-wrap {
+      background: rgba(245,166,35,0.08);
+      border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 12px;
+      padding: 18px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .countdown-label {
+      font-size: 13px;
+      color: var(--dourado);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .countdown-digits {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .digit-block {
+      text-align: center;
+    }
+    .digit-block .num {
+      background: var(--azul-escuro);
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 800;
+      color: var(--dourado);
+      min-width: 52px;
+      display: block;
+      font-variant-numeric: tabular-nums;
+    }
+    .digit-block .unit {
+      font-size: 11px;
+      color: var(--texto-suave);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .digit-sep {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--dourado);
+      margin-bottom: 14px;
+    }
+
+    /* ─── DEPOIMENTOS MINI ─── */
+    .testimonials-mini {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 32px 28px;
+    }
+    .testimonials-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--texto-suave);
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 680px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    .card-depo {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card-depo .resultado {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dourado);
+      margin-bottom: 8px;
+    }
+    .card-depo .frase {
+      font-size: 13.5px;
+      color: var(--cinza-claro);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .card-depo .autor {
+      font-size: 12.5px;
+      color: var(--texto-suave);
+    }
+    .card-depo .autor strong {
+      display: block;
+      color: var(--branco);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .estrelas { color: var(--dourado); font-size: 13px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- FAIXA DE URGÊNCIA -->
+  <div class="urgency-bar">
+    ⚡ OFERTA ESPECIAL · Encerra em <strong id="urgency-text">carregando...</strong> &nbsp;|&nbsp;
+    <span>Preço volta para R$16.943 após o prazo</span>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <!-- Badge -->
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Formação Especialista · INSS de Obras
+      </div>
+
+      <!-- Headline -->
+      <h1 class="headline">
+        Aprenda a cobrar de <span class="destaque">R$5.000 a R$20.000</span>
+        <span class="linha-2">por projeto — e saia do operacional de vez.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="subheadline">
+        O método completo para contadores, advogados e engenheiros que querem
+        dominar o INSS de Obras, <strong>gerar economia real para seus clientes</strong>
+        e cobrar honorários de consultoria — com legislação sólida,
+        ferramenta de cálculo e suporte especializado.
+      </p>
+
+      <!-- Prova social rápida -->
+      <div class="social-strip">
+        <div class="social-pill">
+          <span class="icon">👥</span>
+          <span>Mais de <span class="num">1.500</span> alunos formados</span>
+        </div>
+        <div class="social-pill">
+          <span class="icon">💰</span>
+          <span>Mais de <span class="num">R$3 milhões</span> em economia documentada</span>
+        </div>
+        <div class="social-pill">
+          <span class="icon">🏗️</span>
+          <span>Obras em <span class="num">18+ estados</span> regularizadas por alunos</span>
+        </div>
+      </div>
+
+      <!-- Bullets -->
+      <ul class="bullets">
+        <li>
+          <span class="check">✓</span>
+          <span>Passo a passo completo de PF e PJ — do cálculo à entrega ao cliente</span>
+        </li>
+        <li>
+          <span class="check">✓</span>
+          <span>CalcProObra: ferramenta exclusiva que faz o cálculo em 1 minuto</span>
+        </li>
+        <li>
+          <span class="check">✓</span>
+          <span>Mentoria ao vivo + suporte de segunda a sexta para tirar dúvidas reais</span>
+        </li>
+        <li>
+          <span class="check">✓</span>
+          <span>Legislação atualizada — incluindo Reforma Tributária (CBS/IBS)</span>
+        </li>
+        <li>
+          <span class="check">✓</span>
+          <span>Acesso vitalício com atualizações gratuitas</span>
+        </li>
+        <li>
+          <span class="check">✓</span>
+          <span>Não precisa ser contador — método funciona para qualquer profissão</span>
+        </li>
+      </ul>
+
+      <!-- Contador -->
+      <div class="countdown-wrap">
+        <div class="countdown-label">⏳ Oferta encerra em:</div>
+        <div class="countdown-digits">
+          <div class="digit-block">
+            <span class="num" id="cd-d">00</span>
+            <span class="unit">dias</span>
+          </div>
+          <span class="digit-sep">:</span>
+          <div class="digit-block">
+            <span class="num" id="cd-h">00</span>
+            <span class="unit">horas</span>
+          </div>
+          <span class="digit-sep">:</span>
+          <div class="digit-block">
+            <span class="num" id="cd-m">00</span>
+            <span class="unit">min</span>
+          </div>
+          <span class="digit-sep">:</span>
+          <div class="digit-block">
+            <span class="num" id="cd-s">00</span>
+            <span class="unit">seg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-area">
+        <div>
+          <div class="price-stack">
+            <span class="price-original">De R$16.943</span>
+            <div>
+              <div class="price-atual"><span>R$</span> 2.997</div>
+              <div class="price-parcelas">ou 12x de R$299,70 · Acesso imediato</div>
+            </div>
+          </div>
+        </div>
+        <a href="#checkout" class="btn-cta">
+          Quero me especializar agora →
+        </a>
+        <div class="garantia-line">
+          <span class="lock">🔒</span>
+          Compra 100% segura · Garantia de 7 dias — satisfação total ou seu dinheiro de volta
+        </div>
+      </div>
+
+      <!-- Depoimentos mini -->
+      <div class="testimonials-mini">
+        <div class="testimonials-title">O que nossos alunos dizem</div>
+        <div class="testimonials-grid">
+
+          <div class="card-depo">
+            <div class="estrelas">★★★★★</div>
+            <div class="resultado">R$4k → R$28k/mês</div>
+            <p class="frase">"Logo que comecei o curso, minha primeira obra rendeu R$12.820. Hoje faturamento médio de R$28.000 mensais."</p>
+            <div class="autor">
+              <strong>Ivani</strong>
+              Contadora · Aluna da Formação
+            </div>
+          </div>
+
+          <div class="card-depo">
+            <div class="estrelas">★★★★★</div>
+            <div class="resultado">R$5k → R$30k/mês</div>
+            <p class="frase">"Antes regularizava obras só no meu município. Hoje atendo todo o Brasil — já regularizei em mais de 18 estados."</p>
+            <div class="autor">
+              <strong>Fernanda Dutra</strong>
+              Especialista em Regularização de Obras
+            </div>
+          </div>
+
+          <div class="card-depo">
+            <div class="estrelas">★★★★★</div>
+            <div class="resultado">Até R$50k em 1 obra</div>
+            <p class="frase">"Comecei na mesa da sala de casa. Hoje tenho meu escritório, alta demanda e já cheguei a faturar R$50k numa única regularização."</p>
+            <div class="autor">
+              <strong>Alex</strong>
+              Administrador · Aluno há 2 anos
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    // ─── CONFIGURAR A DATA DE ENCERRAMENTO AQUI ───
+    // Formato: 'YYYY-MM-DDTHH:MM:SS' (hora de Brasília, UTC-3)
+    const DATA_FIM = '2026-03-30T23:59:59';
+    // ────────────────────────────────────────────────
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function calcularTempo() {
+      const agora = new Date();
+      const fim   = new Date(DATA_FIM + '-03:00'); // aplica UTC-3
+      const diff  = fim - agora;
+
+      if (diff <= 0) {
+        document.querySelector('.countdown-wrap').innerHTML =
+          '<span style="color:var(--dourado);font-weight:700">⚠️ Oferta encerrada — verifique disponibilidade</span>';
+        document.getElementById('urgency-text').textContent = '0 horas';
+        return;
+      }
+
+      const dias  = Math.floor(diff / 86400000);
+      const horas = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000)  / 60000);
+      const segs  = Math.floor((diff % 60000)    / 1000);
+
+      document.getElementById('cd-d').textContent = pad(dias);
+      document.getElementById('cd-h').textContent = pad(horas);
+      document.getElementById('cd-m').textContent = pad(mins);
+      document.getElementById('cd-s').textContent = pad(segs);
+
+      // Faixa de urgência
+      if (dias > 0) {
+        document.getElementById('urgency-text').textContent = `${dias}d ${pad(horas)}h ${pad(mins)}min`;
+      } else {
+        document.getElementById('urgency-text').textContent = `${pad(horas)}h ${pad(mins)}min ${pad(segs)}s`;
+      }
+    }
+
+    calcularTempo();
+    setInterval(calcularTempo, 1000);
+  </script>
+
+</body>
+</html>

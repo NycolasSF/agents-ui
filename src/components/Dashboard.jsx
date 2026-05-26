@@ -20,6 +20,17 @@ function fmtK(n) {
   return String(n || 0)
 }
 
+function fmtWeekdayShort(day) {
+  const date = new Date(`${day}T00:00:00`)
+
+  if (Number.isNaN(date.getTime())) return ''
+
+  return date
+    .toLocaleDateString('pt-BR', { weekday: 'short' })
+    .replace('.', '')
+    .replace('-feira', '')
+}
+
 export default function Dashboard() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -138,6 +149,7 @@ export default function Dashboard() {
                 {dayEntries.map(([day, v]) => {
                   const pct = ((v.costUSD || 0) / maxCostDay) * 100
                   const shortDay = day.slice(5) // MM-DD
+                  const weekdayShort = fmtWeekdayShort(day)
                   return (
                     <div key={day} className="flex-1 flex flex-col items-center gap-1 group" title={`${day}: $${fmt(v.costUSD, 4)} · ${v.messages} msgs`}>
                       <div className="w-full flex items-end justify-center" style={{ height: '80px' }}>
@@ -146,9 +158,16 @@ export default function Dashboard() {
                           style={{ height: `${Math.max(pct, 2)}%` }}
                         />
                       </div>
-                      <span className="text-[10px] text-[#55556a] rotate-45 origin-left translate-x-1 translate-y-1 hidden sm:block">
-                        {shortDay}
-                      </span>
+                      <div className="hidden sm:flex flex-col items-center pt-1">
+                        <span className="text-[10px] text-[#55556a] rotate-45 origin-left translate-x-1 translate-y-1">
+                          {shortDay}
+                        </span>
+                        {weekdayShort && (
+                          <span className="text-[9px] text-[#3f3f52] mt-2 leading-none">
+                            {weekdayShort}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   )
                 })}
