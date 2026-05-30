@@ -8,8 +8,8 @@ const REGISTRY_TO_UI = {
   'alex-hormozi': 'hormozi',
   'clone-agent': 'clones',
   'orquestrar': 'orquestrador',
-  'marcio-medeiros': 'marcio-medeiros',
-  'nycolas': 'nycolas',
+  'marcio-expert': 'marcio-expert',
+  'nyc-agent': 'nyc-agent',
 }
 
 const COLORS = {

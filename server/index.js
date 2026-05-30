@@ -10,7 +10,7 @@ import { randomBytes } from 'crypto'
 import { homedir } from 'os'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const ROOT = resolve(__dirname, '../..')
+const ROOT = resolve(__dirname, '../../..')  // infra/agents-ui/server -> raiz do hub (pós-reorg cosmos)
 const SKILLS_PATH = process.env.SKILLS_PATH
   ? resolve(__dirname, '..', process.env.SKILLS_PATH)
   : resolve(ROOT, 'skills')
@@ -20,7 +20,7 @@ const SKILLS_PATH = process.env.SKILLS_PATH
 // CLAUDE.md dali + herda skills globais de .claude/. Override via env AGENT_CWD.
 const AGENT_CWD = process.env.AGENT_CWD
   ? resolve(process.env.AGENT_CWD)
-  : resolve(ROOT, 'marcio-medeiros-educacao')
+  : resolve(ROOT, 'clientes/marcio-medeiros-educacao')
 
 // Arquivo local de log de uso por request
 const USAGE_LOG = resolve(__dirname, '../data/usage.json')
@@ -141,7 +141,7 @@ function buildAgentConfig(agentId) {
       color: '#ef4444',
       tools: [],
       systemPrompt: () => {
-        const agentPath = resolve(ROOT, '.claude/agents/alex-hormozi.md')
+        const agentPath = resolve(ROOT, 'agents/alex-hormozi/prompt.md')
         if (existsSync(agentPath)) {
           return readFileSync(agentPath, 'utf-8').replace(/^---[\s\S]*?---\n/, '').trim()
         }
@@ -183,27 +183,27 @@ function buildAgentConfig(agentId) {
         return 'Você é um orquestrador de agentes IA. Analise o pedido e direcione para o agente mais adequado.'
       },
     },
-    'marcio-medeiros': {
+    'marcio-expert': {
       name: 'Márcio Medeiros — Expert',
       description: 'Especialista em INSS de obra, contabilidade imobiliária e tributação',
       icon: '🏗️',
       color: '#1d4ed8',
       tools: [],
       systemPrompt: () => {
-        const promptPath = resolve(ROOT, 'marcio-medeiros-educacao/!AGENTS/marcio-medeiros/prompt.md')
+        const promptPath = resolve(ROOT, 'agents/marcio-expert/prompt.md')
         if (existsSync(promptPath)) return readFileSync(promptPath, 'utf-8')
         if (catalog) return `Você é Márcio Medeiros, especialista em INSS de obra e contabilidade imobiliária. Filho de pedreiro que virou contador. Didático, técnico, humilde.\n\n${catalog}`
         return 'Você é Márcio Medeiros, especialista em INSS de obra e contabilidade imobiliária.'
       },
     },
-    nycolas: {
+    'nyc-agent': {
       name: 'Nycolas — Estrategista',
       description: 'Estrategista de lançamentos, copy, criativos e narrativas',
       icon: '🚀',
       color: '#7c3aed',
       tools: ['WebSearch', 'WebFetch'],
       systemPrompt: () => {
-        const skillPath = resolve(ROOT, 'marcio-medeiros-educacao/!AGENTS/nycolas/skill.md')
+        const skillPath = resolve(ROOT, 'agents/nyc-agent/skill.md')
         if (existsSync(skillPath)) return readFileSync(skillPath, 'utf-8')
         return 'Você é Nycolas, estrategista de lançamentos digitais e copywriter especializado em Márcio Medeiros Educação. Domina o Método W, criativos, páginas de venda e narrativas de lançamento.'
       },
@@ -290,7 +290,7 @@ app.get('/api/webfetch', async (req, res) => {
 // ── Rotas ─────────────────────────────────────────────────────────────────
 
 app.get('/api/agents', (req, res) => {
-  const agents = ['marcio-medeiros', 'nycolas', 'vendedor', 'lancamento', 'concorrentes', 'hormozi', 'livre', 'clones', 'orquestrador'].map(id => {
+  const agents = ['marcio-expert', 'nyc-agent', 'vendedor', 'lancamento', 'concorrentes', 'hormozi', 'livre', 'clones', 'orquestrador'].map(id => {
     const cfg = buildAgentConfig(id)
     return { id, name: cfg.name, description: cfg.description, icon: cfg.icon, color: cfg.color, tools: cfg.tools }
   })
