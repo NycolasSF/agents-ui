@@ -13,7 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '../../..')  // infra/agents-ui/server -> raiz do hub (pós-reorg cosmos)
 const SKILLS_PATH = process.env.SKILLS_PATH
   ? resolve(__dirname, '..', process.env.SKILLS_PATH)
-  : resolve(ROOT, 'skills')
+  : resolve(ROOT, '_skills')
 
 // Diretório de trabalho do spawn do CLI claude. Definindo como
 // `marcio-medeiros-educacao`, o Claude Code carrega automaticamente o
@@ -166,7 +166,7 @@ function buildAgentConfig(agentId) {
       color: '#8b5cf6',
       tools: ['WebSearch', 'WebFetch'],
       systemPrompt: () => {
-        const skillPath = resolve(ROOT, 'skills/skill-clone-agent/skill.md')
+        const skillPath = resolve(ROOT, '_skills/skill-clone-agent/skill.md')
         if (existsSync(skillPath)) return readFileSync(skillPath, 'utf-8')
         return 'Você é um Arquiteto de Clones IA especialista em engenharia reversa de mentes humanas e implementação em LLMs.'
       },
